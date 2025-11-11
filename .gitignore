@@ -1,6 +1,7 @@
 # Project files
 data/*
 logs/*
+secrets/googleapi.json
 .vscode/
 
 # Byte-compiled / optimized / DLL files
