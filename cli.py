@@ -492,6 +492,8 @@ def list_table(ctx: click.Context, table: Optional[str]) -> None:
         table = click.prompt("Select table", type=click.Choice(list(TABLES.keys()), case_sensitive=False)).lower()
 
     st = _get_storage_from_ctx(ctx)
+    # Ensure table is not None before calling st.read()
+    assert table is not None
     rows = st.read(table)
     if not rows:
         click.echo(f"No rows in table '{table}'.")
