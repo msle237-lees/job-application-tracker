@@ -1,0 +1,66 @@
+# Job Application Tracker Configuration
+
+# Email Checker Settings
+email_checker:
+  days_back: 7  # How many days back to check emails
+  max_emails_per_company: 10  # Limit emails per company
+  exclude_domains:  # Skip emails from these domains
+    - "noreply@"
+    - "no-reply@" 
+    - "donotreply@"
+    - "notifications@"
+
+# Gmail API Settings (keep these secure)
+gmail:
+  credentials_file: "secret/googleapi.json"  # Contains credentials under 'key' field
+  token_file: "secret/token.pickle"
+
+# Status Update Rules
+# These keywords in emails will trigger status updates
+status_rules:
+  rejected:
+    keywords:
+      - "unfortunately"
+      - "regret" 
+      - "not moving forward"
+      - "not selected"
+      - "passed on"
+      - "decided to go"
+      - "pursuing other candidates"
+      - "will not be proceeding"
+      - "not the right fit"
+      - "position has been filled"
+    priority: 10
+
+  interview:
+    keywords:
+      - "interview"
+      - "phone screen"
+      - "next step"
+      - "would like to schedule"
+      - "move forward"
+      - "discuss further"
+      - "technical assessment"
+      - "coding challenge"
+      - "meet with"
+      - "available for a call"
+    priority: 20
+
+  offer:
+    keywords:
+      - "offer"
+      - "congratulations"
+      - "pleased to extend"
+      - "job offer"
+      - "terms of employment"
+      - "compensation package"
+    priority: 30
+
+  recruiter:
+    keywords:
+      - "recruiter"
+      - "talent acquisition"
+      - "hr representative"
+      - "received your application"
+      - "reviewing your profile"
+    priority: 5

@@ -1,7 +1,8 @@
 # Project files
 data/*
 logs/*
-secrets/googleapi.json
+secret/googleapi.json
+secret/token.pickle
 .vscode/
 
 # Byte-compiled / optimized / DLL files

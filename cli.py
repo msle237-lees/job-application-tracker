@@ -977,6 +977,71 @@ def update_application(
     )
     click.echo(f'Updated application id={target.get("application_id")}')
 
+# --------------------------- email-check ------------------------------------
+@cli.command("email-check")
+@click.option("--dry-run", is_flag=True, help="Preview changes without updating database.")
+@click.option("--days", default=7, help="Number of days back to check emails.")
+@click.option("--setup", is_flag=True, help="Set up Gmail OAuth authentication.")
+@click.pass_context
+def email_check(ctx: click.Context, dry_run: bool, days: int, setup: bool) -> None:
+    """
+    @brief Check Gmail for job application updates and automatically update statuses.
+    @details This command integrates with Gmail to scan for emails from companies
+    you've applied to and automatically updates application statuses based on email content.
+    """
+    try:
+        from email_checker import GmailChecker
+    except ImportError:
+        raise click.ClickException(
+            "Email checker dependencies not available. "
+            "Make sure you have installed: google-api-python-client google-auth-httplib2 google-auth-oauthlib"
+        )
+    
+    st = _get_storage_from_ctx(ctx)
+    checker = GmailChecker(st)
+    
+    if setup:
+        click.echo("🔧 Setting up Gmail integration...")
+        if checker.setup_gmail_auth():
+            click.echo("✅ Setup complete! You can now run email-check to scan your emails.")
+        else:
+            click.echo("❌ Setup failed. Please check the instructions above.")
+        return
+    
+    # Update config with custom days
+    checker.config['days_back'] = days
+    
+    if not checker.setup_gmail_auth():
+        return
+    
+    if dry_run:
+        click.echo("🔍 DRY RUN: Checking emails without making changes...")
+    
+    try:
+        results = checker.check_applications(dry_run=dry_run)
+        
+        # Show summary
+        click.echo(f"\n📊 Results:")
+        click.echo(f"  Applications checked: {results['checked']}")
+        click.echo(f"  Emails found: {results['emails_found']}")
+        click.echo(f"  Updates {'would be made' if dry_run else 'made'}: {results['updates_made']}")
+        
+        # Show detailed updates
+        if results['updates']:
+            click.echo(f"\n📋 Status Updates:")
+            for update in results['updates']:
+                status_text = "WOULD UPDATE" if dry_run else "UPDATED"
+                click.echo(f"  {status_text}: {update['company_name']} "
+                          f"({update['old_status']} → {update['new_status']})")
+                click.echo(f"    📧 Email: {update['email_subject'][:60]}...")
+        
+        if not dry_run and results['updates_made'] > 0:
+            logging.info(f"Email checker updated {results['updates_made']} applications")
+    
+    except Exception as e:
+        click.echo(f"❌ Error checking emails: {e}")
+        logging.error(f"Email checker error: {e}")
+
 # =============================================================================
 # Entrypoint
 # =============================================================================

@@ -1,0 +1,76 @@
+{
+  "status_rules": {
+    "rejected": {
+      "keywords": [
+        "unfortunately",
+        "regret",
+        "not moving forward",
+        "not selected",
+        "passed on",
+        "decided to go",
+        "pursuing other candidates",
+        "will not be proceeding",
+        "not the right fit",
+        "position has been filled",
+        "thank you for your interest",
+        "move forward with other candidates",
+        "decided to move forward with other",
+        "will not be moving forward",
+        "have decided to go with"
+      ],
+      "domains": [],
+      "priority": 15
+    },
+    "interview": {
+      "keywords": [
+        "interview",
+        "phone screen",
+        "next step",
+        "would like to schedule",
+        "move forward",
+        "discuss further",
+        "technical assessment",
+        "coding challenge",
+        "meet with",
+        "available for a call",
+        "screening call"
+      ],
+      "domains": [],
+      "priority": 20
+    },
+    "offer": {
+      "keywords": [
+        "offer",
+        "congratulations",
+        "pleased to extend",
+        "job offer",
+        "terms of employment",
+        "compensation package",
+        "start date"
+      ],
+      "domains": [],
+      "priority": 30
+    },
+    "recruiter": {
+      "keywords": [
+        "recruiter",
+        "talent acquisition",
+        "hr representative",
+        "hiring manager",
+        "received your application",
+        "reviewing your profile",
+        "follow up"
+      ],
+      "domains": [],
+      "priority": 5
+    }
+  },
+  "days_back": 15,
+  "max_emails_per_company": 10,
+  "exclude_domains": [
+    "noreply@",
+    "no-reply@",
+    "donotreply@"
+  ],
+  "last_check": 1762917273
+}
