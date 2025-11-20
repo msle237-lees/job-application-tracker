@@ -5,7 +5,7 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "9664:8000"
     volumes:
       - ./job_tracker.db:/app/job_tracker.db
       - ./secret:/app/secret
