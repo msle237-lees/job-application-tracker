@@ -4,7 +4,20 @@ This project now includes a modern web-based interface with a FastAPI backend an
 
 ## Quick Start
 
-### 1. Start the Backend
+### Option 1: Docker (Recommended for Production)
+
+```bash
+# Start all services with Docker Compose
+docker-compose up -d
+
+# Access the application at http://localhost:8000
+```
+
+For detailed Docker setup including scheduled email checking, see [DOCKER.md](DOCKER.md).
+
+### Option 2: Local Development
+
+#### 1. Start the Backend
 
 ```bash
 # Install dependencies
@@ -20,7 +33,7 @@ python api.py
 
 The API will be available at http://localhost:8000
 
-### 2. Start the Frontend
+#### 2. Start the Frontend
 
 ```bash
 # Navigate to dashboard directory
@@ -34,6 +47,10 @@ npm run dev
 ```
 
 The dashboard will be available at http://localhost:5173
+
+### Option 3: Scheduled Email Checking
+
+For automatic email status updates, see the [Email Scheduler](#scheduled-email-checking) section below.
 
 ## Features
 
@@ -131,10 +148,68 @@ npm run dev
 
 Changes to React components will hot-reload automatically.
 
+## Scheduled Email Checking
+
+The application includes a scheduler for automatic email checking and status updates.
+
+### With Docker (Recommended)
+
+The `docker-compose.yml` includes an `email-checker` service that runs automatically:
+
+```bash
+# Start all services including email checker
+docker-compose up -d
+
+# View email checker logs
+docker-compose logs -f email-checker
+
+# Configure check interval (default: 60 minutes)
+# Edit docker-compose.yml and set EMAIL_CHECK_INTERVAL_MINUTES
+```
+
+### Without Docker
+
+Run the scheduler manually:
+
+```bash
+# Run in background with default 60-minute interval
+python email_scheduler.py &
+
+# Or set custom interval (in minutes)
+EMAIL_CHECK_INTERVAL_MINUTES=30 python email_scheduler.py &
+
+# View logs
+tail -f logs/email_scheduler.log
+```
+
+### Setup Gmail OAuth
+
+Before email checking works, you need to authenticate:
+
+```bash
+# With Docker
+docker-compose run --rm app python cli.py email-check --setup
+
+# Without Docker
+python cli.py email-check --setup
+```
+
+Follow the instructions in [GMAIL_SETUP.md](GMAIL_SETUP.md) for obtaining credentials.
+
 ## Production Deployment
 
 ### Backend
 
+**With Docker:**
+```bash
+# Use docker-compose for production
+docker-compose -f docker-compose.yml up -d
+
+# Or deploy to cloud platforms
+# AWS ECS, Google Cloud Run, Azure Container Instances, etc.
+```
+
+**Without Docker:**
 ```bash
 # Install production dependencies
 pip install -r requirements.txt
@@ -142,6 +217,8 @@ pip install -r requirements.txt
 # Run with gunicorn (production)
 gunicorn api:app -w 4 -k uvicorn.workers.UvicornWorker
 ```
+
+See [DOCKER.md](DOCKER.md) for detailed production deployment guide.
 
 ### Frontend
 
