@@ -5,6 +5,22 @@ secret/googleapi.json
 secret/token.pickle
 .vscode/
 
+# SQLite database
+*.db
+*.db-journal
+
+# React/Node.js
+dashboard/node_modules/
+dashboard/build/
+dashboard/dist/
+dashboard/.env.local
+dashboard/.env.development.local
+dashboard/.env.test.local
+dashboard/.env.production.local
+dashboard/npm-debug.log*
+dashboard/yarn-debug.log*
+dashboard/yarn-error.log*
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
