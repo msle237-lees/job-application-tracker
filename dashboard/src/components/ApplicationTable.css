@@ -1,0 +1,100 @@
+.application-table-container {
+  margin: 20px 0;
+}
+
+.application-table-container h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.application-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+}
+
+.application-table thead {
+  background: #f8f9fa;
+}
+
+.application-table th {
+  padding: 12px;
+  text-align: left;
+  font-weight: 600;
+  color: #495057;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.application-table td {
+  padding: 12px;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.application-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.company-cell, .position-cell {
+  font-weight: 500;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.status-new { background: #e3f2fd; color: #1976d2; }
+.status-applied { background: #e8f5e9; color: #388e3c; }
+.status-recruiter { background: #fff3e0; color: #f57c00; }
+.status-phone { background: #f3e5f5; color: #7b1fa2; }
+.status-technical { background: #e1f5fe; color: #0277bd; }
+.status-onsite { background: #fce4ec; color: #c2185b; }
+.status-offer { background: #c8e6c9; color: #2e7d32; }
+.status-accepted { background: #a5d6a7; color: #1b5e20; }
+.status-rejected { background: #ffcdd2; color: #c62828; }
+.status-withdrawn { background: #eeeeee; color: #616161; }
+
+.actions-cell {
+  white-space: nowrap;
+}
+
+.btn-edit, .btn-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  font-size: 1.2rem;
+  transition: transform 0.2s;
+}
+
+.btn-edit:hover, .btn-delete:hover {
+  transform: scale(1.2);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #6c757d;
+}
+
+.loading, .error {
+  padding: 20px;
+  text-align: center;
+}
+
+.error {
+  color: #dc3545;
+  background: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}

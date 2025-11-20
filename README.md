@@ -2,6 +2,25 @@
 
 A lightweight, local-first toolkit to track applications, store contacts, log stages, and (optionally) auto-update statuses from Gmail.
 
+**🐳 Now with Docker support and scheduled email checking!**
+
+---
+
+## 🚀 Quick Start Options
+
+### Option 1: Docker (Recommended)
+```bash
+docker-compose up -d
+# Access at http://localhost:8000
+```
+See [DOCKER.md](DOCKER.md) for complete Docker setup including scheduled email checking.
+
+### Option 2: Web Dashboard
+See [README_API.md](README_API.md) for FastAPI backend + React frontend setup.
+
+### Option 3: CLI
+Continue reading below for traditional CLI usage.
+
 ---
 
 ## Progress Chart

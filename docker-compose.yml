@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  # FastAPI backend with React frontend
+  app:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./job_tracker.db:/app/job_tracker.db
+      - ./secret:/app/secret
+      - ./logs:/app/logs
+    environment:
+      - DATABASE_URL=sqlite:///./job_tracker.db
+    restart: unless-stopped
+    networks:
+      - tracker-network
+
+  # Scheduled email checker service
+  email-checker:
+    build: .
+    volumes:
+      - ./job_tracker.db:/app/job_tracker.db
+      - ./secret:/app/secret
+      - ./logs:/app/logs
+      - ./email_config.json:/app/email_config.json
+    environment:
+      - DATABASE_URL=sqlite:///./job_tracker.db
+    command: python -u email_scheduler.py
+    restart: unless-stopped
+    networks:
+      - tracker-network
+    depends_on:
+      - app
+
+networks:
+  tracker-network:
+    driver: bridge
