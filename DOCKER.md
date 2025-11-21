@@ -171,6 +171,9 @@ These are mounted as volumes and will persist across container restarts.
 # Initialize swarm
 docker swarm init
 
+# Build the image once (Swarm ignores the build directive)
+docker build -t job-application-tracker:latest .
+
 # Deploy stack
 docker stack deploy -c docker-compose.yml tracker
 
@@ -180,6 +183,8 @@ docker service ls
 # View logs
 docker service logs -f tracker_app
 ```
+
+> ℹ️ If your swarm runs on multiple nodes, push the `job-application-tracker:latest` image to a registry (Docker Hub, GHCR, etc.) and update the `image` tag accordingly so every node can pull it.
 
 ### Using Kubernetes
 

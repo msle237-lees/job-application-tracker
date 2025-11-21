@@ -4,6 +4,7 @@ services:
   # FastAPI backend with React frontend
   app:
     build: .
+    image: job-application-tracker:latest
     ports:
       - "9664:8000"
     volumes:
@@ -24,6 +25,7 @@ services:
   # Scheduled email checker service
   email-checker:
     build: .
+    image: job-application-tracker:latest
     volumes:
       - ./job_tracker.db:/app/job_tracker.db
       - ./secret:/app/secret
