@@ -174,6 +174,9 @@ docker swarm init
 # Build the image once (Swarm ignores the build directive)
 docker build -t job-application-tracker:latest .
 
+# Set the absolute path that should be mounted into the containers
+export STACK_BASE_PATH=/home/user/Documents/Personal_HomeLab/job-application-tracker
+
 # Deploy stack
 docker stack deploy -c docker-compose.yml tracker
 
@@ -185,6 +188,7 @@ docker service logs -f tracker_app
 ```
 
 > ℹ️ If your swarm runs on multiple nodes, push the `job-application-tracker:latest` image to a registry (Docker Hub, GHCR, etc.) and update the `image` tag accordingly so every node can pull it.
+> If the project lives somewhere else on disk, change `STACK_BASE_PATH` before running `docker stack deploy`.
 
 ### Using Kubernetes
 

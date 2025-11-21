@@ -8,9 +8,15 @@ services:
     ports:
       - "9664:8000"
     volumes:
-      - ./job_tracker.db:/app/job_tracker.db
-      - ./secret:/app/secret
-      - ./logs:/app/logs
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/job_tracker.db
+        target: /app/job_tracker.db
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/secret
+        target: /app/secret
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/logs
+        target: /app/logs
     environment:
       - DATABASE_URL=sqlite:///./job_tracker.db
     restart: unless-stopped
@@ -27,10 +33,18 @@ services:
     build: .
     image: job-application-tracker:latest
     volumes:
-      - ./job_tracker.db:/app/job_tracker.db
-      - ./secret:/app/secret
-      - ./logs:/app/logs
-      - ./email_config.json:/app/email_config.json
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/job_tracker.db
+        target: /app/job_tracker.db
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/secret
+        target: /app/secret
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/logs
+        target: /app/logs
+      - type: bind
+        source: ${STACK_BASE_PATH:-/home/user/Documents/Personal_HomeLab/job-application-tracker}/email_config.json
+        target: /app/email_config.json
     environment:
       - DATABASE_URL=sqlite:///./job_tracker.db
     command: python -u email_scheduler.py
