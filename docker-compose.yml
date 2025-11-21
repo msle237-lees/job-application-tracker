@@ -47,4 +47,5 @@ services:
 
 networks:
   tracker-network:
-    driver: bridge
+    driver: overlay
+    attachable: true
